@@ -9,9 +9,8 @@ list = [{'id': 4, 'lat': 7, 'taxi': False, 'lon': 97,  'time': int(time.time()+r
         {'id': 5, 'lat': 5, 'taxi': False, 'lon': 9,  'time': None},
         {'id': 6, 'lat': 1, 'taxi': False, 'lon': 1,  'time': int(time.time()+random.randint(100, 300))}]
 
-
 item = filter(lambda t: t['time'] is None or t['time'] < rt, list)
-cl = filter(lambda t: t['lat'] <= 10 and t['lon'] < 10, item)
+
 
 tlat = 10
 tlon = 99
