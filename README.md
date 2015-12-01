@@ -8,6 +8,9 @@
 
     pip install flask_apscheduler
 
+3. create dir  /server/logs
+
+
 
 ### start server
 cd server
