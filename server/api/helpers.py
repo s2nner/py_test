@@ -1,3 +1,5 @@
+import time
+
 class Helpers:
     @staticmethod
     def list_updater(target, list, repl):
@@ -21,7 +23,17 @@ class Helpers:
         return item
 
     @staticmethod
-    def get_order(taxi, list):
-        item = filter(lambda t: t['id'] == None, list)
+    def get_order(taxi, list2):
+        rt = int(time.time()+300)  # +5 min
+        item = filter(lambda t: t['time'] is None or t['time'] < rt, list2)
+        min = 100 ** 2
+        client = False
 
-        return item
+        for idx, item in enumerate(item):
+
+            distance = (taxi['lat'] - item['lat']) ** 2 + (taxi['lon'] - item['lon']) ** 2
+            if distance < min:
+                min = distance
+                client = item
+
+        return client

@@ -17,10 +17,14 @@ def get_task(task_id):
     if task is False:
         return jsonify({'GET': False})
 
+    print task
+    client = Helpers.get_order(task[0], storage.clientsList)
 
+    newclient = Helpers.list_updater(client[0].id, storage.clientsList, client)
 
+    Helpers.list_updater(task_id, storage.taxiList, client)
 
-    return jsonify({'GET': task})
+    return jsonify({'GET': newclient})
 
 
 @taxi_api.route('/taxi_api/api/v1.0/orders', methods=['POST'])

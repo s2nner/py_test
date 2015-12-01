@@ -12,24 +12,29 @@ class Clients:
         self.lat = lat
         self.lon = lon
         self.is_order = False
+        self.t_reg = False
         self.api_url = api_url
+        self.taxi = False
 
 class Crandom:
 
     def __init__(self, object):
         self.client = object
 
+
     def taxi_run(self):
         # POST taxi register
-        if self.client.is_order is False:
+        if self.client.t_reg is False:
             ordering = self.set_ordering(self.client)
-            self.client.is_order = True
-            print(ordering)
+            self.client.t_reg = True
+            # print(ordering)
 
         # GET taxi order info
-        if self.client.is_order is True:
+        if self.client.t_reg is True:
             resp = self.get_order(self.client)
-            # print(resp)
+            print(resp)
+
+
 
     def client_run(self):
         # POST client register
@@ -59,8 +64,9 @@ class Crandom:
         print("======================================================")
         # print(resp)
 
+
     def set_ordering(self, client):
-        values = {'client_id': client.id, 'time': client.time, 'lat': client.lat, 'lon': client.lon, 'is_order': client.is_order}
+        values = {'client_id': client.id, 'time': client.time, 'lat': client.lat, 'lon': client.lon, 'is_order': client.is_order, 'taxi': client.taxi}
         opener = urllib2.build_opener()
         request = urllib2.Request(client.api_url+'api/v1.0/orders', json.dumps(values))
         request.add_header('Content-Type', 'application/json')

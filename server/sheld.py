@@ -25,8 +25,10 @@ def job1(a, b):
     """
     Test
     """
-    print("========================================================")
+    print("="*60)
     print (storage.clientsList)
+    print("-"*60)
+    print (storage.taxiList)
     # print(__name__)
     # print(time.time())
 
