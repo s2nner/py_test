@@ -1,7 +1,7 @@
 .idea
 .git
 clients/test.py
-server/log/
+server/log/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
