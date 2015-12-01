@@ -3,8 +3,16 @@ from flask import Blueprint, jsonify, abort, request
 from api.helpers import Helpers
 import storage
 
+from flask import current_app
+
 client_api = Blueprint('client_api', __name__)
 # print(client_api.__dict__)
+
+@client_api.route('/cl', methods=['GET'])
+def gtt():
+    current_app.logger.info('Info')
+    return jsonify({'GET': storage.clientsList})
+
 
 @client_api.route('/client_api/api/v1.0/orders', methods=['GET'])
 def get_tasks():
@@ -36,6 +44,7 @@ def create_order():
         'lon': content["lon"],
         'taxi': False,
     }
+    current_app.logger.info(" client register %d", content["client_id"])
     storage.clientsList.append(order)
     # return jsonify({'POST': order})
     return "{}".format(content), 201
@@ -63,6 +72,7 @@ def update_task(task_id):
     }
 
     new = Helpers.list_updater(task_id, storage.clientsList, order)
+    current_app.logger.info(" client update %d", content["client_id"])
 
     return jsonify({'PUT': new})
     # return "{}".format(storage.clientsList), 201
@@ -74,6 +84,7 @@ def delete_task(task_id):
         return jsonify({'DELETE': task_id})
 
     Helpers.list_del(task_id, storage.clientsList)
+    current_app.logger.info(" client del %d", task_id)
 
     # return jsonify({'DELETE': True})
     return "{}".format(storage.clientsList), 201

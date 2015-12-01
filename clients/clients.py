@@ -21,7 +21,6 @@ class Crandom:
     def __init__(self, object):
         self.client = object
 
-
     def taxi_run(self):
         # POST taxi register
         if self.client.t_reg is False:
@@ -35,29 +34,28 @@ class Crandom:
             print(resp)
 
 
-
     def client_run(self):
         # POST client register
         if self.client.is_order is False:
             ordering = self.set_ordering(self.client)
             self.client.is_order = True
-            print(ordering)
+            # print(ordering)
 
         # PUT client time update
         if self.client.is_order is True and random.randint(0, 100) > 70:  # 30 percent
             ordering = self.update_ordering(self.client)
-            print(ordering)
+            # print(ordering)
 
         # DELETE client order del
         if self.client.is_order is True and random.randint(0, 100) > 90:  # 10 percent
             ordering = self.del_ordering(self.client)
             self.client.is_order = False
-            print(ordering)
+            # print(ordering)
 
         # GET client order info
         if self.client.is_order is True:
             resp = self.get_order(self.client)
-            # print(resp)
+            print(resp)
 
         # GETALL client order info
         # resp = self.get_all_order(self.client)

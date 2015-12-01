@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, abort, request
+from flask import Blueprint, jsonify, abort, request, current_app
 
 from api.helpers import Helpers
 import storage
@@ -17,15 +17,15 @@ def get_task(task_id):
     if task is False:
         return jsonify({'GET': False})
 
-    print task
     client = Helpers.get_order(task[0], storage.clientsList)
+    if client is not False:
+        client["taxi"] = task_id
+        newclient = Helpers.list_updater(client['id'], storage.clientsList, client)
+        # Helpers.list_updater(task_id, storage.taxiList, client)
+        current_app.logger.info("order Taxi %d or Client %d", task_id, client['id'])
+        return jsonify({'GET': newclient})
 
-    newclient = Helpers.list_updater(client[0].id, storage.clientsList, client)
-
-    Helpers.list_updater(task_id, storage.taxiList, client)
-
-    return jsonify({'GET': newclient})
-
+    return jsonify({'GET': False})
 
 @taxi_api.route('/taxi_api/api/v1.0/orders', methods=['POST'])
 def create_order():
