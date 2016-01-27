@@ -1,27 +1,4 @@
-# py_test
+flask-restful-example
+=====================
 
-1. install flask 
-
-    pip install flask
-    
-2. install flask_apscheduler
-
-    pip install flask_apscheduler
-
-3. create dir  /server/logs
-
-
-
-### start server
-cd server
-
-python app.py
-
-### start client
-cd clients
-
-python client.py
-python taxi.py
-
-
-
+An example of using a Flask-Restful module with several version of API and using unittest
