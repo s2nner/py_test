@@ -13,9 +13,17 @@ def createdb(testdata=False):
         db.drop_all()
         db.create_all()
         if testdata:
-            u = User(username='test', password='test')
+            u = User(username='test', password_hash='test')
             db.session.add(u)
             db.session.commit()
+
+
+@manager.command
+def test():
+    from subprocess import call
+    call(['nosetests', '-v',
+          '--with-coverage', '--cover-package=api', '--cover-branches',
+          '--cover-erase', '--cover-html', '--cover-html-dir=cover'])
 
 if __name__ == '__main__':
     manager.run()
